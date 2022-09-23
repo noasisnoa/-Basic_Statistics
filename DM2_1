@@ -1,0 +1,79 @@
+#더미변수 변환
+
+#범주형 변수를 숫자형으로 변환
+
+
+
+data(“Titanic”)
+
+class(Titanic)
+
+data(“etitanic”)
+
+library(etitanic)
+
+attach(etitanic)
+
+str(etitanic)
+
+head(etitanic)
+
+#pcclass와 sex을 숫자형으로 변환
+
+head(model.matrix(survived~., data=etitanic))
+
+fit <-model.matrix(survived~., data=etitanic)
+
+head(fit)
+
+
+
+dummy <- dummyVars(survived~., data = etitanic)
+
+fit1 <-predict(dummy, newdata= etitanic)
+
+head(fit1)
+
+head(etitanic)
+
+
+
+#r결측값 처리
+
+#1.결측값 조사
+
+class(airquality)
+
+head(airquality)
+
+summary(airquality)
+
+
+
+#인접이웃 방법 knn 으로 대체
+
+inp <- preProcess(airquality, method = c(‘knnImpute’))
+
+dim(inp)
+
+summary(inp)
+
+
+
+#r결측지 제거
+
+Omitted <-na.omit(airquality)
+
+dim(airquality)
+
+summary(airequality)
+
+
+
+#중앙값, 평균값, 최소값 또는 최댓값으로 대체
+
+airquality$ozone<-ifelse(is.na(airquality$ozone), mean(airquality$ozone, na.rm = T), airquality$ozone)
+
+airquality$Solar.R<-ifelse(is.na(airquality$Solar.R), mean(airquality$Solar.R, na.rm  = T), airquality&Solar.R)
+
+summary(airquality)
